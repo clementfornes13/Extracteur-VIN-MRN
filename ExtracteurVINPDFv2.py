@@ -28,9 +28,9 @@ sg.theme('Reddit')
 layout = [
     [sg.Text("Fichier PDF :"), sg.Input(), sg.FileBrowse('Parcourir',file_types=(("Fichiers PDF", "*.pdf"),))],
     [sg.Text("Destination de  l'extraction :"), sg.Input(key='Destination'), sg.FolderBrowse('Parcourir')],
-    [sg.Button("Extraction des VIN"), sg.Exit('Quitter'),sg.Image('C:\\Users\\clement.fornes\\Downloads\\Logo TEA FOS.png', size=(214,50),pad=(50,0))]
+    [sg.Button("Extraction des VIN"), sg.Exit('Quitter'),sg.Image('Logo TEA FOS.png', size=(214,50),pad=(50,0))]
     ] 
-window = sg.Window("Extracteur VIN PDF EAD", layout,icon='C:\\Users\\clement.fornes\\Downloads\\d01905f217254fc0a5a0c95e471dba6b_1.ico') 
+window = sg.Window("Extracteur VIN PDF EAD", layout,icon='d01905f217254fc0a5a0c95e471dba6b_1.ico') 
 
 # This code block is creating an infinite loop that continuously reads events from the GUI window
 # created using PySimpleGUI library. The loop will continue until the user clicks the "Quitter" button
@@ -75,5 +75,5 @@ while True:
             else:
                 sg.popup('Pas de destination')
         else:
-            sg.popup('Pas de fichier sélectionné, veuillez en sélectionner un !',title='Erreur',icon='C:\\Users\\clement.fornes\\Downloads\\d01905f217254fc0a5a0c95e471dba6b_1.ico')
+            sg.popup('Pas de fichier sélectionné, veuillez en sélectionner un !',title='Erreur',icon='d01905f217254fc0a5a0c95e471dba6b_1.ico')
             ListeVIN=[]
