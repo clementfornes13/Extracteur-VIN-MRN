@@ -1,6 +1,6 @@
 # The VINExtractor class extracts VIN numbers from a PDF file and saves them in an Excel file.
 
-import PySimpleGUI
+from PySimpleGUI import theme, Text, Button, Input, FileBrowse, FolderBrowse, Exit, Image, WIN_CLOSED, popup, Window
 from os import path, startfile
 from re import findall
 from PyPDF2 import PdfReader
@@ -23,13 +23,13 @@ class VINExtractor:
         s.VIN_PATTERN = r"\b([A-HJ-NPR-Z0-9]{17})\b"
         s.icon = path.join(s.IMG_PATH, 'Icone.ico')
         s.logo = path.join(s.IMG_PATH, 'Logo TEA FOS.png')
-        PySimpleGUI.theme('Reddit')
+        theme('Reddit')
         s.layout = [
-            [PySimpleGUI.Text("Fichier PDF :"), PySimpleGUI.Input(), PySimpleGUI.FileBrowse('Parcourir',file_types=(("Fichiers PDF", "*.pdf"),))],
-            [PySimpleGUI.Text("Destination de  l'extraction :"), PySimpleGUI.Input(key='Destination'), PySimpleGUI.FolderBrowse('Parcourir')],
-            [PySimpleGUI.Button("Extraction des VIN"), PySimpleGUI.Exit('Quitter'),PySimpleGUI.Image(s.logo, size=(214,50),pad=(50,0))]
+            [Text("Fichier PDF :"), Input(), FileBrowse('Parcourir',file_types=(("Fichiers PDF", "*.pdf"),))],
+            [Text("Destination de  l'extraction :"), Input(key='Destination'), FolderBrowse('Parcourir')],
+            [Button("Extraction des VIN"), Exit('Quitter'),Image(s.logo, size=(214,50),pad=(50,0))]
         ]
-        s.window = PySimpleGUI.Window("Extracteur VIN PDF EAD", s.layout, icon=s.icon)
+        s.window = Window("Extracteur VIN PDF EAD", s.layout, icon=s.icon)
     def run(s):
         
         """
@@ -41,7 +41,7 @@ class VINExtractor:
         
         while True:
             event, values = s.window.read()
-            if event == PySimpleGUI.WIN_CLOSED or event == "Quitter":
+            if event == WIN_CLOSED or event == "Quitter":
                 break
             elif event == "Extraction des VIN":
                 emplacement_pdf = values[0]
@@ -69,13 +69,13 @@ class VINExtractor:
                             file_name = "Extraction VIN EAD {}.xlsx".format(i)
                             file_path = path.join(values['Destination'], file_name)
                         workbook.save(file_path)
-                        PySimpleGUI.popup("Fini!", f"Fichier enregistré ici : {file_path}", f"{len(s.ListeVIN)} VIN extraits", "Le fichier va s'ouvrir...")
+                        popup("Fini!", f"Fichier enregistré ici : {file_path}", f"{len(s.ListeVIN)} VIN extraits", "Le fichier va s'ouvrir...")
                         startfile(file_path)
                         s.ListeVIN = []
                     else:
-                        PySimpleGUI.popup('Pas de destination', title='Erreur')
+                        popup('Pas de destination', title='Erreur')
                 else:
-                    PySimpleGUI.popup('Pas de fichier sélectionné, veuillez en sélectionner un !', title='Erreur', icon=s.icon)
+                    popup('Pas de fichier sélectionné, veuillez en sélectionner un !', title='Erreur', icon=s.icon)
                     s.ListeVIN = []
         s.window.close()
         
