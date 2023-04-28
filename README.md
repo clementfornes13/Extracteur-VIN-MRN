@@ -67,12 +67,17 @@ L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire d
 ## Historique des versions
 
 - Version 1 : 
+
 	> Analyse du texte pour trouver le texte avant le VIN
 
 - Version 1.1 :
+
 	> Détection directe des VINs selon un pattern
+
 - Version 1.2 :
+
   > Ajout du choix de l'emplacement de destination
+
   > Ouverture automatique du fichier à la fin de l'extraction
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
