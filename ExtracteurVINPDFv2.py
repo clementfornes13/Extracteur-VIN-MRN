@@ -1,3 +1,5 @@
+#Auto -generated docs, and comment using a tool named : Mintlify Doc Writer
+
 # The VINExtractor class extracts VIN numbers from a PDF file and saves them in an Excel file.
 
 from PySimpleGUI import theme, Text, Button, Input, FileBrowse, FolderBrowse, Exit, Image, WIN_CLOSED, popup, Window
