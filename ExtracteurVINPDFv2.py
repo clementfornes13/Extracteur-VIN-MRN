@@ -16,9 +16,11 @@ from openpyxl import Workbook
 # pattern indicate word boundaries, which means that the pattern will only match if the VIN is
 # surrounded by non-alphanumeric characters or the beginning/end of the string.
 
+IMG_PATH = path.join(path.dirname(__file__), 'images')
 VIN_PATTERN = r"\b([A-HJ-NPR-Z0-9]{17})\b" 
 ListeVIN=[]
-
+icon = path.join(IMG_PATH, 'Icone.ico')
+logo = path.join(IMG_PATH, 'Logo TEA FOS.png')
 # This code block is creating a GUI window using the PySimpleGUI library. The `sg.theme('Reddit')`
 # sets the theme of the window to the Reddit theme. The `layout` variable defines the layout of the
 # window, including text inputs, file and folder browsing buttons, and an image. The `sg.Window`
@@ -28,9 +30,9 @@ sg.theme('Reddit')
 layout = [
     [sg.Text("Fichier PDF :"), sg.Input(), sg.FileBrowse('Parcourir',file_types=(("Fichiers PDF", "*.pdf"),))],
     [sg.Text("Destination de  l'extraction :"), sg.Input(key='Destination'), sg.FolderBrowse('Parcourir')],
-    [sg.Button("Extraction des VIN"), sg.Exit('Quitter'),sg.Image('Logo TEA FOS.png', size=(214,50),pad=(50,0))]
+    [sg.Button("Extraction des VIN"), sg.Exit('Quitter'),sg.Image(logo, size=(214,50),pad=(50,0))]
     ] 
-window = sg.Window("Extracteur VIN PDF EAD", layout,icon='d01905f217254fc0a5a0c95e471dba6b_1.ico') 
+window = sg.Window("Extracteur VIN PDF EAD", layout,icon=icon) 
 
 # This code block is creating an infinite loop that continuously reads events from the GUI window
 # created using PySimpleGUI library. The loop will continue until the user clicks the "Quitter" button
@@ -75,5 +77,5 @@ while True:
             else:
                 sg.popup('Pas de destination')
         else:
-            sg.popup('Pas de fichier sélectionné, veuillez en sélectionner un !',title='Erreur',icon='d01905f217254fc0a5a0c95e471dba6b_1.ico')
+            sg.popup('Pas de fichier sélectionné, veuillez en sélectionner un !',title='Erreur',icon=icon)
             ListeVIN=[]
