@@ -22,7 +22,7 @@ class VINExtractor:
         
         s.ListeVIN = []
         s.IMG_PATH = path.join(path.dirname(__file__), 'images')
-        s.VIN_PATTERN = r"\b([A-HJ-NPR-Z0-9]{17})\b"
+        s.VIN_PATTERN = r"(?!FR)[A-HJ-NPR-Z][A-HJ-NPR-Z0-9]{15}[A-HJ-NPR-Z\d]"
         s.icon = path.join(s.IMG_PATH, 'Icone.ico')
         s.logo = path.join(s.IMG_PATH, 'Logo TEA FOS.png')
         theme('Reddit')
@@ -56,6 +56,7 @@ class VINExtractor:
                     for page_num in range(len(lire_pdf.pages)):
                         page = lire_pdf.pages[page_num]
                         texte = page.extract_text()
+                        print(texte)
                         vins = findall(s.VIN_PATTERN, texte)
                         for vin in vins:
                             s.ListeVIN.append(vin)
