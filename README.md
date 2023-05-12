@@ -43,10 +43,10 @@ L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire d
   https://www.python.org/downloads/
   ```
     
-* PySimpleGUI
+* PyQt6
   ```sh
-  pip install pysimplegui
-  py -m pip install pysimplegui
+  pip install PyQt6
+  py -m pip install PyQt6
   ```
 
 * PyPDF2
@@ -95,5 +95,5 @@ L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire d
 
 * [PyPDF2 Documentation](https://pypdf2.readthedocs.io/en/3.0.0/)
 * [OpenPyXL Documentation](https://openpyxl.readthedocs.io/en/stable/)
-* [PySimpleGUI Documentation](https://www.pysimplegui.org/en/latest/)
+* [PyQt6 Documentation](https://www.riverbankcomputing.com/static/Docs/PyQt6/)
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
