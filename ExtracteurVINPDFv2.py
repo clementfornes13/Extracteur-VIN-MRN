@@ -117,6 +117,11 @@ class VINExtractor(QMainWindow):
     def launch_extraction(self, values):
         emplacement_pdf = self.inputPDF.text()
         destination = self.inputDest.text()
+        file_list = [pdf for pdf in listdir(emplacement_pdf) if pdf.lower().endswith('.pdf')]
+        total_files = len(file_list)
+        if total_files==0:
+            QMessageBox.critical(self,'Erreur', 'Le dossier PDF sélectionné est vide')
+            return None
         file_path = self.extract_vins_mrns(emplacement_pdf, destination)
         if not file_path:
             QMessageBox.critical(self, 'Erreur', 'Pas de Dossier PDF / Destination choisi')
