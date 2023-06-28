@@ -1,6 +1,6 @@
 <!-- LOGO PROJET -->
 <div align="center">
-  <h3 align="center">Extracteur VIN PDF</h3>
+  <h3 align="center">Extracteur VIN MRN PDF</h3>
 </div>
 
 <!-- SOMMAIRE -->
@@ -27,7 +27,7 @@
 ## A propos
 
 
-L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire directement les VIN présents sur un PDF donné
+L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire directement les VIN et MRN présents sur des PDF dans un dossier donné
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
@@ -43,10 +43,10 @@ L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire d
   https://www.python.org/downloads/
   ```
     
-* PySimpleGUI
+* PyQt6
   ```sh
-  pip install pysimplegui
-  py -m pip install pysimplegui
+  pip install PyQt6
+  py -m pip install PyQt6
   ```
 
 * PyPDF2
@@ -80,6 +80,14 @@ L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire d
 
   > Ouverture automatique du fichier à la fin de l'extraction
 
+- Version 2.0 :
+
+  > Nouvelle Interface
+  
+  > Détection VIN et MRN
+ 
+  > Traite tout les fichiers dans un dossier
+
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
 <!-- Ressources utilisées -->
@@ -87,5 +95,5 @@ L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire d
 
 * [PyPDF2 Documentation](https://pypdf2.readthedocs.io/en/3.0.0/)
 * [OpenPyXL Documentation](https://openpyxl.readthedocs.io/en/stable/)
-* [PySimpleGUI Documentation](https://www.pysimplegui.org/en/latest/)
+* [PyQt6 Documentation](https://www.riverbankcomputing.com/static/Docs/PyQt6/)
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
