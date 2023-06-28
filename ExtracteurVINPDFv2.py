@@ -122,6 +122,7 @@ class VINMRNExtractor(Tk):
         workbook = Workbook()
         sheet = workbook.active
         sheet['A1'] = 'Liste des MRN'
+
         row_num = 2
         file_list = [pdf for pdf in os.listdir(emplacement_pdf) if pdf.lower().endswith('.pdf')]
         total_files = len(file_list)
