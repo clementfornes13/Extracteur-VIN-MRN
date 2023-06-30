@@ -87,6 +87,15 @@ L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire d
   > Détection VIN et MRN
  
   > Traite tout les fichiers dans un dossier
+- Version 3.0 :
+
+  > Nouvelle Interface avec Tkinter
+
+  > Choix entre VIN, MRN ou VIN + MRN
+
+  > Barre de progression
+
+  > Utilisation de différents threads
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
@@ -96,4 +105,5 @@ L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire d
 * [PyPDF2 Documentation](https://pypdf2.readthedocs.io/en/3.0.0/)
 * [OpenPyXL Documentation](https://openpyxl.readthedocs.io/en/stable/)
 * [PyQt6 Documentation](https://www.riverbankcomputing.com/static/Docs/PyQt6/)
+* [Tkinter Documentation](https://docs.python.org/fr/3/library/tkinter.html)
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
