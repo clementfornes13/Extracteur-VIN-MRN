@@ -43,10 +43,10 @@ L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire d
   https://www.python.org/downloads/
   ```
     
-* PyQt6
+* Tkinter
   ```sh
-  pip install PyQt6
-  py -m pip install PyQt6
+  pip install tk
+  py -m pip install tk
   ```
 
 * PyPDF2
