@@ -154,8 +154,6 @@ class VINMRNExtractor(Tk):
 
     # Extraction des VIN
     def extract_vins(self, emplacement_pdf, destination):
-        if not emplacement_pdf:
-            return None
         workbook = Workbook()
         sheet = workbook.active
         sheet['A1'] = 'Liste des VIN'
@@ -196,8 +194,6 @@ class VINMRNExtractor(Tk):
     
     # Extraction des MRN
     def extract_mrns(self, emplacement_pdf, destination):
-        if not emplacement_pdf:
-            return None
         workbook = Workbook()
         sheet = workbook.active
         sheet['A1'] = 'Liste des MRN'
@@ -237,8 +233,6 @@ class VINMRNExtractor(Tk):
     
     # Extraction des VIN et MRN
     def extract_vins_mrns(self, emplacement_pdf, destination):
-        if not emplacement_pdf:
-            return None
         workbook = Workbook()
         sheet = workbook.active
         sheet['A1'] = 'Liste des VIN'
@@ -262,7 +256,8 @@ class VINMRNExtractor(Tk):
                         self.unique_VIN.append(vin_unique)
                     for vin in self.unique_VIN:
                         sheet.cell(row=row_num, column=1, value=vin)
-                        sheet.cell(row=row_num, column=2, value=self.ListeMRN[0])
+                        if len(self.ListeMRN) > 0:
+                            sheet.cell(row=row_num, column=2, value=self.ListeMRN[0])
                         row_num += 1
                     self.ListeVIN.clear(), self.ListeMRN.clear(), self.unique_VIN.clear()
             file_count += 1
@@ -302,11 +297,15 @@ class VINMRNExtractor(Tk):
         file_path_temp = [None]
         emplacement_pdf = self.inputPDF.get()
         destination = self.inputDest.get()
+        if emplacement_pdf == '' or destination == '':
+            return self.error_message(
+                'Veuillez sélectionner un dossier source et un dossier de destination'
+            )
         file_list = [pdf for pdf in listdir(emplacement_pdf) if pdf.lower().endswith('.pdf')]
         total_files = len(file_list)
         if total_files == 0:
             return self.error_message(
-                'Le dossier PDF sélectionné est vide'
+                'Le dossier source sélectionné est vide'
             )
         extract_option = self.extractOption.get()
         if extract_option == 1:
@@ -331,7 +330,7 @@ class VINMRNExtractor(Tk):
         file_path = file_path_temp[0]
         if not file_path:
             return self.error_message(
-                'Pas de Dossier PDF / Destination choisi'
+                'Une erreur est survenue lors de l\'extraction des données'
             )
         messagebox.showinfo('Extraction réussie', f"Fichier enregistré ici : {file_path}")
         startfile(file_path)
