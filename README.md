@@ -1,6 +1,6 @@
 <!-- LOGO PROJET -->
 <div align="center">
-  <h3 align="center">Extracteur VIN MRN PDF</h3>
+  <h3 align="center">Extracteur VIN et MRN</h3>
 </div>
 
 <!-- SOMMAIRE -->
@@ -27,7 +27,7 @@
 ## A propos
 
 
-L'extracteur VIN PDF est un exécutable qui permet aux utilisateurs d'extraire directement les VIN et MRN présents sur des PDF dans un dossier donné
+L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extraire directement les VIN et MRN présents sur des PDF dans un dossier donné
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
