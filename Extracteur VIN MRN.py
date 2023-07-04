@@ -3,7 +3,7 @@
 # Description: Ce script permet d'extraire les VIN et MRN de fichiers PDF
 #
 # Auteur: FORNES Clément
-# Date: 30 juin 2023
+# Date: 4 Juillet 2023
 #
 # Copyright (c) 2023 FORNES Clément
 #
@@ -37,7 +37,7 @@
 # Il est possible d'extraire les VIN, les MRN ou les deux
 # Les VIN et MRN sont enregistrés dans un fichier Excel
 # Le fichier Excel est enregistré dans le dossier de destination
-# Mise à jour: 30 juin 2023
+# Mise à jour: 4 Juillet 2023
 #################### IMPORTS ####################
 from tkinter import Tk, Label, Button, Entry, filedialog, messagebox, PhotoImage, IntVar, END
 from tkinter.ttk import Progressbar, Frame, Radiobutton
@@ -52,12 +52,27 @@ import threading
 class VINMRNExtractor(Tk):
 
     def __init__(self):
-        # Initialisation de la fenêtre principale
-        super().__init__()
+        #################### VARIABLES ####################
         self.ListeVIN, self.ListeMRN, self.unique_VIN, self.unique_MRN = [], [], [], []
         self.IMG_PATH = path.join(path.dirname(__file__), 'images')
+        # Patterne des VIN 
+        # Explication : 
+        # (?!FR) : Ne pas commencer par FR
+        # [A-HJ-NPR-Z] : Lettre de A à Z sauf I, O et Q
+        # Même chose pour les 15 caractères suivants
+        # [A-HJ-NPR-Z\d] : Lettre de A à Z sauf I, O et Q ou chiffre
         self.VIN_PATTERN = r"(?!FR)[A-HJ-NPR-Z][A-HJ-NPR-Z0-9]{15}[A-HJ-NPR-Z\d]"
+        # Patterne des MRN
+        # Explication :
+        # (?<!\S) : Ne pas commencer par un caractère
+        # (?!MRN) : Ne pas commencer par MRN
+        # (?=[A-Z0-9]{18}\b) : Commencer par 18 caractères alphanumériques
+        # [A-Z0-9]*[A-Z][A-Z0-9]*\b : Finir par un caractère alphanumérique
+        # (?!\S) : Ne pas finir par un caractère
         self.MRN_PATTERN = r"(?<!\S)(?!MRN)(?=[A-Z0-9]{18}\b)[A-Z0-9]*[A-Z][A-Z0-9]*\b(?!\S)"
+        #################################################
+        # Initialisation de la fenêtre principale
+        super().__init__()
         self.icon = path.join(self.IMG_PATH, 'Icone.ico').replace('\\', '/')
         self.logo = path.join(self.IMG_PATH, 'Logo TEA FOS.png').replace('\\', '/')
         self.initUI()
@@ -108,32 +123,37 @@ class VINMRNExtractor(Tk):
         self.progress_bar = Progressbar(self, mode='determinate')
         self.progress_bar.grid(row=6, column=0, pady=5)
         self.progress_bar.grid_remove()
+
+    # Désactiver les boutons
     def disable_buttons(self):
         self.extractButton.config(state="disabled")
         self.vinRadio.config(state="disabled")
         self.mrnRadio.config(state="disabled")
         self.vinMrnRadio.config(state="disabled")
 
+    # Activer les boutons
     def enable_buttons(self):
         self.extractButton.config(state="normal")
         self.vinRadio.config(state="normal")
         self.mrnRadio.config(state="normal")
         self.vinMrnRadio.config(state="normal")
 
+    # Fenêtre de sélection du dossier PDF
     def browsePDFClicked(self):
         # Selection du dossier contenant les PDF
         if directory := filedialog.askdirectory(title="Choisir un dossier"):
             self.inputPDF.delete(0, END)
             self.inputPDF.insert(0, directory)
 
+    # Fenêtre de sélection du dossier de destination
     def browseDestClicked(self):
         # Selection du dossier de destination
         if directory := filedialog.askdirectory(title="Choisir un dossier"):
             self.inputDest.delete(0, END)
             self.inputDest.insert(0, directory)
-            
+
+    # Extraction des VIN
     def extract_vins(self, emplacement_pdf, destination):
-        # Extraction des VIN
         if not emplacement_pdf:
             return None
         workbook = Workbook()
@@ -174,8 +194,8 @@ class VINMRNExtractor(Tk):
         workbook.save(file_path)
         return file_path
     
+    # Extraction des MRN
     def extract_mrns(self, emplacement_pdf, destination):
-        # Extraction des MRN
         if not emplacement_pdf:
             return None
         workbook = Workbook()
@@ -214,9 +234,9 @@ class VINMRNExtractor(Tk):
             file_path = path.join(destination, file_name)
         workbook.save(file_path)
         return file_path
-
+    
+    # Extraction des VIN et MRN
     def extract_vins_mrns(self, emplacement_pdf, destination):
-        # Extraction des VIN et MRN
         if not emplacement_pdf:
             return None
         workbook = Workbook()
@@ -260,16 +280,24 @@ class VINMRNExtractor(Tk):
         workbook.save(file_path)
         return file_path
     
+    # Mise à jour de la barre de progression
     def update_progress(self, value, maximum):
-        # Mise à jour de la barre de progression
         self.progress_bar['value'] = value
         self.progress_bar['maximum'] = maximum
         self.update()
         
+    # Chemin de fichier temporaire
     def extraction_temp(self, extraction_func, args, file_path_temp):
         file_path_temp[0] = extraction_func(*args)
+        
+    # Message d'erreur
+    def error_message(self, arg0):
+        messagebox.showerror('Erreur', arg0)
+        self.enable_buttons()
+        return None
+    
+    # Lancement de l'extraction
     def launch_extraction(self):
-        # Lancement de l'extraction
         self.disable_buttons()
         file_path_temp = [None]
         emplacement_pdf = self.inputPDF.get()
@@ -277,9 +305,9 @@ class VINMRNExtractor(Tk):
         file_list = [pdf for pdf in listdir(emplacement_pdf) if pdf.lower().endswith('.pdf')]
         total_files = len(file_list)
         if total_files == 0:
-            messagebox.showerror('Erreur', 'Le dossier PDF sélectionné est vide')
-            self.enable_buttons()
-            return None
+            return self.error_message(
+                'Le dossier PDF sélectionné est vide'
+            )
         extract_option = self.extractOption.get()
         if extract_option == 1:
             thread = threading.Thread(target=self.extraction_temp, args=(self.extract_vins, (emplacement_pdf, destination), file_path_temp))
@@ -302,13 +330,14 @@ class VINMRNExtractor(Tk):
                 t.join()
         file_path = file_path_temp[0]
         if not file_path:
-            messagebox.showerror('Erreur', 'Pas de Dossier PDF / Destination choisi')
-            self.enable_buttons()
-            return None
+            return self.error_message(
+                'Pas de Dossier PDF / Destination choisi'
+            )
         messagebox.showinfo('Extraction réussie', f"Fichier enregistré ici : {file_path}")
         startfile(file_path)
         self.progress_bar.grid_remove()
         self.enable_buttons()
+
 #################################################
 app = VINMRNExtractor()
 app.resizable(False, False)
