@@ -18,6 +18,7 @@
       </ul>
     </li>
     <li><a href="#utilisation">Utilisation</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
     <lia><a href="#versionhistory">Historique des versions</a></li>
     <li><a href="#ressources">Ressources utilisés</a></li>
   </ol>
@@ -96,6 +97,18 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
   > Barre de progression
 
   > Utilisation de différents threads
+
+<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [x] Extraction de VIN 
+- [x] Extraction de MRN
+- [x] Barre de progression
+- [x] Interface graphique
+- [x] Utilisation de threads
+- [x] Traitement par dossier
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
