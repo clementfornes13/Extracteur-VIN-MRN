@@ -39,13 +39,14 @@
 # Le fichier Excel est enregistré dans le dossier de destination
 # Mise à jour: 4 Juillet 2023
 #################### IMPORTS ####################
-from tkinter import Tk, Label, Button, Entry, filedialog, messagebox, PhotoImage, IntVar, END
+from tkinter import Tk, Label, Button, Entry, filedialog, messagebox, PhotoImage, IntVar, END, Toplevel
 from tkinter.ttk import Progressbar, Frame, Radiobutton
 from openpyxl import Workbook
 from PyPDF2 import PdfReader
 from os import path, startfile, listdir
 from re import findall
 import threading
+import datetime
 #################################################
 
 #################### CLASSES ####################
@@ -61,6 +62,7 @@ class VINMRNExtractor(Tk):
         # [A-HJ-NPR-Z] : Lettre de A à Z sauf I, O et Q
         # Même chose pour les 15 caractères suivants
         # [A-HJ-NPR-Z\d] : Lettre de A à Z sauf I, O et Q ou chiffre
+        # Cette expression régulière 
         self.VIN_PATTERN = r"(?!FR)[A-HJ-NPR-Z][A-HJ-NPR-Z0-9]{15}[A-HJ-NPR-Z\d]"
         # Patterne des MRN
         # Explication :
@@ -82,7 +84,7 @@ class VINMRNExtractor(Tk):
         # Paramètres de la fenêtre
         self.title("Extracteur VIN MRN")
         self.iconbitmap(self.icon)
-        self.geometry("350x350")
+        self.geometry("350x320")
         logoLabel = Label(self)
         logoImage = PhotoImage(file=self.logo)
         logoLabel.config(image=logoImage)
@@ -110,6 +112,7 @@ class VINMRNExtractor(Tk):
         self.extractButton.grid(row=5, column=0, pady=10)
         # Options d'extraction
         self.extractOption = IntVar()
+        self.extractOption.set(4)
         # 1 = Extraction VIN
         self.vinRadio = Radiobutton(self, text="VIN", variable=self.extractOption, value=1)
         self.vinRadio.grid(row=2, column=0, padx=5, pady=5, sticky='n')
@@ -123,6 +126,26 @@ class VINMRNExtractor(Tk):
         self.progress_bar = Progressbar(self, mode='determinate')
         self.progress_bar.grid(row=6, column=0, pady=5)
         self.progress_bar.grid_remove()
+        # Crée un bouton d'aide personnalisé
+        help_button = Button(self, text="Aide", command=self.show_help)
+        help_button.grid(row=0, column=0,pady=5,sticky='ne')
+
+    # Définit la fonction pour afficher l'aide
+    def show_help(self):
+        help_text = (
+            "Bienvenue dans l'Extracteur VIN MRN !\n\n"
+            + "Utilisez ce programme pour extraire les VIN et MRN à partir de fichiers PDF.\n\n"
+        )
+        help_text += "Instructions :\n"
+        help_text += "1. Cliquez sur le bouton 'Parcourir' à côté de 'Dossier PDF' pour sélectionner le dossier contenant les fichiers PDF à traiter.\n"
+        help_text += "2. Cliquez sur le bouton 'Parcourir' à côté de 'Destination' pour choisir où enregistrer les résultats.\n"
+        help_text += "3. Sélectionnez l'option d'extraction souhaitée : 'VIN', 'MRN' ou 'VIN + MRN'.\n"
+        help_text += "4. Cliquez sur le bouton 'Extraction' pour démarrer le processus d'extraction.\n"
+        help_text += "5. La barre de progression indiquera l'avancement de l'extraction.\n"
+        help_text += "6. Les résultats seront enregistrés dans le dossier de destination que vous avez choisi.\n"
+        help_text += "\nN'oubliez pas de vous assurer que les fichiers PDF contiennent les informations VIN et MRN que vous souhaitez extraire.\n"
+        help_text += "\nSi vous rencontrez des problèmes, veuillez contacter FORNES Clément à l'adresse suivante : clement.fornes@teamarseille.gcatrans.com"
+        messagebox.showinfo("Aide", help_text)
 
     # Désactiver les boutons
     def disable_buttons(self):
@@ -162,16 +185,20 @@ class VINMRNExtractor(Tk):
         total_files = len(file_list)
         self.progress_bar['maximum'] = total_files
         self.progress_bar.grid()
+        # Pour chaque fichier PDF dans le dossier
         for file_count, pdf in enumerate(file_list, start=1):
             pdf = path.join(emplacement_pdf, pdf).replace("\\", "/")
             with open(pdf, 'rb') as file:
                 lire_pdf = PdfReader(file)
+                # Pour chaque page du PDF
                 for page_num, page in enumerate(lire_pdf.pages):
                     texte = page.extract_text()
                     vins = findall(self.VIN_PATTERN, texte)
                     self.ListeVIN.extend(vins)
+                    # Avoir une liste de VIN uniques
                     for vin_unique in set(self.ListeVIN):
                         self.unique_VIN.append(vin_unique)
+                    # Ajoute chaque VIN par ligne sur la colonne A
                     for vin in self.unique_VIN:
                         sheet.cell(row=row_num, column=1, value=vin)
                         row_num += 1
@@ -182,13 +209,12 @@ class VINMRNExtractor(Tk):
         if not destination:
             self.enable_buttons()
             return None
-        file_name = "Extraction VIN EAD.xlsx".format(1)
+        current_datetime = datetime.datetime.now()
+        formatted_datetime = current_datetime.strftime("%d-%m-%Y %H-%M")
+
+        # Création du nom de fichier avec horodatage
+        file_name = f"Extraction VIN EAD {formatted_datetime}.xlsx"
         file_path = path.join(destination, file_name)
-        i = 1
-        while path.exists(file_path):
-            i += 1
-            file_name = f"Extraction VIN EAD {i}.xlsx"
-            file_path = path.join(destination, file_name)
         workbook.save(file_path)
         return file_path
     
@@ -221,13 +247,12 @@ class VINMRNExtractor(Tk):
             self.update()
         if not destination:
             return None
-        file_name = "Extraction MRN EAD.xlsx".format(1)
+        current_datetime = datetime.datetime.now()
+        formatted_datetime = current_datetime.strftime("%d-%m-%Y %H-%M")
+
+        # Création du nom de fichier avec horodatage
+        file_name = f"Extraction VIN EAD {formatted_datetime}.xlsx"
         file_path = path.join(destination, file_name)
-        i = 1
-        while path.exists(file_path):
-            i += 1
-            file_name = f"Extraction MRN EAD {i}.xlsx"
-            file_path = path.join(destination, file_name)
         workbook.save(file_path)
         return file_path
     
@@ -265,13 +290,12 @@ class VINMRNExtractor(Tk):
             self.update()
         if not destination:
             return None
-        file_name = "Extraction VIN MRN EAD.xlsx".format(1)
+        current_datetime = datetime.datetime.now()
+        formatted_datetime = current_datetime.strftime("%d-%m-%Y %H-%M")
+
+        # Création du nom de fichier avec horodatage
+        file_name = f"Extraction VIN MRN EAD {formatted_datetime}.xlsx"
         file_path = path.join(destination, file_name)
-        i = 1
-        while path.exists(file_path):
-            i += 1
-            file_name = f"Extraction VIN MRN EAD {i}.xlsx"
-            file_path = path.join(destination, file_name)
         workbook.save(file_path)
         return file_path
     
@@ -312,8 +336,12 @@ class VINMRNExtractor(Tk):
             thread = threading.Thread(target=self.extraction_temp, args=(self.extract_vins, (emplacement_pdf, destination), file_path_temp))
         elif extract_option == 2:
             thread = threading.Thread(target=self.extraction_temp, args=(self.extract_mrns, (emplacement_pdf, destination), file_path_temp))
-        else:
+        elif extract_option == 3:
             thread = threading.Thread(target=self.extraction_temp, args=(self.extract_vins_mrns, (emplacement_pdf, destination), file_path_temp))
+        else:
+            return self.error_message(
+                'Veuillez sélectionner une option d\'extraction'
+            )
         thread.start()
         self.progress_bar.grid()
         stop_flag = False
