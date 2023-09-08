@@ -37,8 +37,11 @@
 # Il est possible d'extraire les VIN, les MRN ou les deux
 # Les VIN et MRN sont enregistrés dans un fichier Excel
 # Le fichier Excel est enregistré dans le dossier de destination
-# Mise à jour: 4 Juillet 2023
-#################### IMPORTS ####################
+# Le fichier Excel est ouvert automatiquement après l'extraction
+#
+# ------------------------------------------------------------------------------
+# Mise à jour: 8 Septembre 2023
+#################### MODULES ####################
 from tkinter import Tk, Label, Button, Entry, filedialog, messagebox, PhotoImage, IntVar, END
 from tkinter.ttk import Progressbar, Frame, Radiobutton
 from openpyxl import Workbook
