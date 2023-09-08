@@ -30,6 +30,8 @@
 
 L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extraire directement les VIN et MRN présents sur des PDF dans un dossier donné
 
+![Screenshot](https://github.com/clementfornes13/Extracteur-VIN-MRN/blob/main/images/Screenshot%20Interface.png)
+
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
 
@@ -39,17 +41,12 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 ### Pré-requis
 
 * Windows
-* Python
+
+* Python 3.11
   ```sh
   https://www.python.org/downloads/
   ```
-    
-* Tkinter
-  ```sh
-  pip install tk
-  py -m pip install tk
-  ```
-
+  
 * PyPDF2
   ```sh
   pip install PyPDF2
@@ -69,11 +66,12 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 - Version 1 : 
 
-	> Analyse du texte pour trouver le texte avant le VIN
+	> Extraction du texte et cherche les VINs
 
 - Version 1.1 :
 
-	> Détection directe des VINs selon un pattern
+	> Définition d'un pattern pour les VINs
+  > Interface graphique simple
 
 - Version 1.2 :
 
@@ -83,20 +81,23 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 - Version 2.0 :
 
-  > Nouvelle Interface
+  > Nouvelle Interface plus complète et rapide avec PyQt6
   
-  > Détection VIN et MRN
+  > Définition d'un pattern pour les MRNs
+
+  > Détection des MRNs et VINs associés
  
-  > Traite tout les fichiers dans un dossier
+  > Traite tout les fichiers dans un même dossier
+
 - Version 3.0 :
 
-  > Nouvelle Interface avec Tkinter
+  > Nouvelle Interface avec Tkinter (meilleure réactivité)
 
-  > Choix entre VIN, MRN ou VIN + MRN
+  > Choix entre VIN, MRN ou VIN + MRN avec des cases à cocher
 
-  > Barre de progression
+  > Barre de progression pour avoir un aperçu de l'avancement
 
-  > Utilisation de différents threads
+  > Utilisation de différents threads pour améliorer la vitesse d'exécution et l'expérience utilisateur
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
@@ -109,6 +110,7 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 - [x] Interface graphique
 - [x] Utilisation de threads
 - [x] Traitement par dossier
+- [x] Facilité d'utilisation et d'installation
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
@@ -117,6 +119,7 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 * [PyPDF2 Documentation](https://pypdf2.readthedocs.io/en/3.0.0/)
 * [OpenPyXL Documentation](https://openpyxl.readthedocs.io/en/stable/)
-* [PyQt6 Documentation](https://www.riverbankcomputing.com/static/Docs/PyQt6/)
 * [Tkinter Documentation](https://docs.python.org/fr/3/library/tkinter.html)
+* [auto-py-to-exe](https://pypi.org/project/auto-py-to-exe/)
+
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
