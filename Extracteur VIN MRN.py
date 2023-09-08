@@ -212,14 +212,9 @@ class VINMRNExtractor(Tk):
         if not destination:
             self.enable_buttons()
             return None
-        current_datetime = datetime.datetime.now()
-        formatted_datetime = current_datetime.strftime("%d-%m-%Y %H-%M")
-
-        # Création du nom de fichier avec horodatage
-        file_name = f"Extraction VIN EAD {formatted_datetime}.xlsx"
-        file_path = path.join(destination, file_name)
-        workbook.save(file_path)
-        return file_path
+        return self.save_excel(
+            'Extraction VIN EAD ', destination, workbook
+        )
     
     # Extraction des MRN
     def extract_mrns(self, emplacement_pdf, destination):
@@ -250,14 +245,9 @@ class VINMRNExtractor(Tk):
             self.update()
         if not destination:
             return None
-        current_datetime = datetime.datetime.now()
-        formatted_datetime = current_datetime.strftime("%d-%m-%Y %H-%M")
-
-        # Création du nom de fichier avec horodatage
-        file_name = f"Extraction VIN EAD {formatted_datetime}.xlsx"
-        file_path = path.join(destination, file_name)
-        workbook.save(file_path)
-        return file_path
+        return self.save_excel(
+            'Extraction MRN EAD ', destination, workbook
+        )
     
     # Extraction des VIN et MRN
     def extract_vins_mrns(self, emplacement_pdf, destination):
@@ -293,14 +283,9 @@ class VINMRNExtractor(Tk):
             self.update()
         if not destination:
             return None
-        current_datetime = datetime.datetime.now()
-        formatted_datetime = current_datetime.strftime("%d-%m-%Y %H-%M")
-
-        # Création du nom de fichier avec horodatage
-        file_name = f"Extraction VIN MRN EAD {formatted_datetime}.xlsx"
-        file_path = path.join(destination, file_name)
-        workbook.save(file_path)
-        return file_path
+        return self.save_excel(
+            'Extraction VIN MRN EAD ', destination, workbook
+        )
     
     # Mise à jour de la barre de progression
     def update_progress(self, value, maximum):
@@ -317,6 +302,15 @@ class VINMRNExtractor(Tk):
         messagebox.showerror('Erreur', arg0)
         self.enable_buttons()
         return None
+    
+    # Enregistrement du fichier Excel
+    def save_excel(self, arg0, destination, workbook):
+        current_datetime = datetime.datetime.now()
+        formatted_datetime = current_datetime.strftime("%d-%m-%Y %H-%M")
+        file_name = f"{arg0}{formatted_datetime}.xlsx"
+        file_path = path.join(destination, file_name)
+        workbook.save(file_path)
+        return file_path
     
     # Lancement de l'extraction
     def launch_extraction(self):
