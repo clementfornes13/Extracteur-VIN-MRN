@@ -106,7 +106,7 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Extraction de VIN 
+- [x] Extraction de VIN
 - [x] Extraction de MRN
 - [x] Barre de progression
 - [x] Interface graphique
