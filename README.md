@@ -8,7 +8,7 @@
   <summary>Sommaire</summary>
   <ol>
     <li>
-      <a href="#a-propos">A propos</a>
+      <a href="#a-propos">À propos</a>
     </li>
     <li>
       <a href="#mise-en-place">Mise en place</a>
@@ -24,8 +24,8 @@
   </ol>
 </details>
 
-<!-- A propos -->
-## A propos
+<!-- À propos -->
+## À propos
 
 
 L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extraire directement les VIN et MRN présents sur des PDF dans un dossier donné
