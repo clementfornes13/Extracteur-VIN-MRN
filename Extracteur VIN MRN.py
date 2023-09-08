@@ -286,7 +286,7 @@ class VINMRNExtractor(Tk):
         return self.save_excel(
             'Extraction VIN MRN EAD ', destination, workbook
         )
-    
+
     # Mise à jour de la barre de progression
     def update_progress(self, value, maximum):
         self.progress_bar['value'] = value
