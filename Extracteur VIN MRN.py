@@ -39,7 +39,7 @@
 # Le fichier Excel est enregistré dans le dossier de destination
 # Mise à jour: 4 Juillet 2023
 #################### IMPORTS ####################
-from tkinter import Tk, Label, Button, Entry, filedialog, messagebox, PhotoImage, IntVar, END, Toplevel
+from tkinter import Tk, Label, Button, Entry, filedialog, messagebox, PhotoImage, IntVar, END
 from tkinter.ttk import Progressbar, Frame, Radiobutton
 from openpyxl import Workbook
 from PyPDF2 import PdfReader
