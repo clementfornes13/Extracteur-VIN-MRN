@@ -30,7 +30,9 @@
 
 L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extraire directement les VIN et MRN présents sur des PDF dans un dossier donné
 
-![Screenshot](https://github.com/clementfornes13/Extracteur-VIN-MRN/blob/main/images/Screenshot%20Interface.png)
+<p align="center">
+  <img src="https://github.com/clementfornes13/Extracteur-VIN-MRN/blob/main/images/Screenshot%20Interface.png" alt="Screenshot" />
+</p>
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
