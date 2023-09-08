@@ -59,13 +59,13 @@ class VINMRNExtractor(Tk):
         #################### VARIABLES ####################
         self.ListeVIN, self.ListeMRN, self.unique_VIN, self.unique_MRN = [], [], [], []
         self.IMG_PATH = path.join(path.dirname(__file__), 'images')
-        # Patterne des VIN 
-        # Explication : 
+        # Patterne des VIN
+        # Explication :
         # (?!FR) : Ne pas commencer par FR
         # [A-HJ-NPR-Z] : Lettre de A à Z sauf I, O et Q
         # Même chose pour les 15 caractères suivants
         # [A-HJ-NPR-Z\d] : Lettre de A à Z sauf I, O et Q ou chiffre
-        # Cette expression régulière 
+        # Cette expression régulière
         self.VIN_PATTERN = r"(?!FR)[A-HJ-NPR-Z][A-HJ-NPR-Z0-9]{15}[A-HJ-NPR-Z\d]"
         # Patterne des MRN
         # Explication :
@@ -194,7 +194,7 @@ class VINMRNExtractor(Tk):
             with open(pdf, 'rb') as file:
                 lire_pdf = PdfReader(file)
                 # Pour chaque page du PDF
-                for page_num, page in enumerate(lire_pdf.pages):
+                for _, page in enumerate(lire_pdf.pages):
                     texte = page.extract_text()
                     vins = findall(self.VIN_PATTERN, texte)
                     self.ListeVIN.extend(vins)
@@ -215,7 +215,7 @@ class VINMRNExtractor(Tk):
         return self.save_excel(
             'Extraction VIN EAD ', destination, workbook
         )
-    
+
     # Extraction des MRN
     def extract_mrns(self, emplacement_pdf, destination):
         workbook = Workbook()
@@ -362,8 +362,7 @@ class VINMRNExtractor(Tk):
         self.progress_bar.grid_remove()
         self.enable_buttons()
 
-#################################################
+
 app = VINMRNExtractor()
 app.resizable(False, False)
 app.mainloop()
-#################################################
