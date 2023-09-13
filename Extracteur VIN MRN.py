@@ -47,7 +47,7 @@ from tkinter.ttk import Progressbar, Frame, Radiobutton
 from openpyxl import Workbook
 from PyPDF2 import PdfReader
 from os import path, startfile, listdir
-from re import findall
+from re import findall, compile
 import threading
 import datetime
 #################################################
@@ -152,18 +152,16 @@ class VINMRNExtractor(Tk):
 
     # Désactiver les boutons
     def disable_buttons(self):
-        self.extractButton.config(state="disabled")
-        self.vinRadio.config(state="disabled")
-        self.mrnRadio.config(state="disabled")
-        self.vinMrnRadio.config(state="disabled")
-
+        self.enable_disable_buttons("disabled")
     # Activer les boutons
     def enable_buttons(self):
-        self.extractButton.config(state="normal")
-        self.vinRadio.config(state="normal")
-        self.mrnRadio.config(state="normal")
-        self.vinMrnRadio.config(state="normal")
+        self.enable_disable_buttons("normal")
 
+    def enable_disable_buttons(self, state):
+        self.extractButton.config(state=state)
+        self.vinRadio.config(state=state)
+        self.mrnRadio.config(state=state)
+        self.vinMrnRadio.config(state=state)
     # Fenêtre de sélection du dossier PDF
     def browsePDFClicked(self):
         # Selection du dossier contenant les PDF
@@ -178,79 +176,8 @@ class VINMRNExtractor(Tk):
             self.inputDest.delete(0, END)
             self.inputDest.insert(0, directory)
 
-    # Extraction des VIN
-    def extract_vins(self, emplacement_pdf, destination):
-        workbook = Workbook()
-        sheet = workbook.active
-        sheet['A1'] = 'Liste des VIN'
-        row_num = 2
-        file_list = [pdf for pdf in listdir(emplacement_pdf) if pdf.lower().endswith('.pdf')]
-        total_files = len(file_list)
-        self.progress_bar['maximum'] = total_files
-        self.progress_bar.grid()
-        # Pour chaque fichier PDF dans le dossier
-        for file_count, pdf in enumerate(file_list, start=1):
-            pdf = path.join(emplacement_pdf, pdf).replace("\\", "/")
-            with open(pdf, 'rb') as file:
-                lire_pdf = PdfReader(file)
-                # Pour chaque page du PDF
-                for _, page in enumerate(lire_pdf.pages):
-                    texte = page.extract_text()
-                    vins = findall(self.VIN_PATTERN, texte)
-                    self.ListeVIN.extend(vins)
-                    # Avoir une liste de VIN uniques
-                    for vin_unique in set(self.ListeVIN):
-                        self.unique_VIN.append(vin_unique)
-                    # Ajoute chaque VIN par ligne sur la colonne A
-                    for vin in self.unique_VIN:
-                        sheet.cell(row=row_num, column=1, value=vin)
-                        row_num += 1
-                    self.ListeVIN.clear(), self.unique_VIN.clear()
-            file_count += 1
-            self.progress_bar['value'] = file_count
-            self.update()
-        if not destination:
-            self.enable_buttons()
-            return None
-        return self.save_excel(
-            'Extraction VIN EAD ', destination, workbook
-        )
-
-    # Extraction des MRN
-    def extract_mrns(self, emplacement_pdf, destination):
-        workbook = Workbook()
-        sheet = workbook.active
-        sheet['A1'] = 'Liste des MRN'
-        row_num = 2
-        file_list = [pdf for pdf in listdir(emplacement_pdf) if pdf.lower().endswith('.pdf')]
-        total_files = len(file_list)
-        self.progress_bar['maximum'] = total_files
-        self.progress_bar.grid()
-        for file_count, pdf in enumerate(file_list, start=1):
-            pdf = path.join(emplacement_pdf, pdf).replace("\\", "/")
-            with open(pdf, 'rb') as file:
-                lire_pdf = PdfReader(file)
-                for page_num, page in enumerate(lire_pdf.pages):
-                    texte = page.extract_text()
-                    mrns = findall(self.MRN_PATTERN, texte)
-                    self.ListeMRN.extend(mrns)
-                    for mrn_unique in set(self.ListeMRN):
-                        self.unique_MRN.append(mrn_unique)
-                    for mrn in self.unique_MRN:
-                        sheet.cell(row=row_num, column=1, value=mrn)
-                        row_num += 1
-                    self.ListeMRN.clear(), self.unique_MRN.clear()
-            file_count += 1
-            self.progress_bar['value'] = file_count
-            self.update()
-        if not destination:
-            return None
-        return self.save_excel(
-            'Extraction MRN EAD ', destination, workbook
-        )
-
     # Extraction des VIN et MRN
-    def extract_vins_mrns(self, emplacement_pdf, destination):
+    def extract_vins_mrns(self, emplacement_pdf, destination, extract_option):
         workbook = Workbook()
         sheet = workbook.active
         sheet['A1'] = 'Liste des VIN'
@@ -264,28 +191,63 @@ class VINMRNExtractor(Tk):
             pdf = path.join(emplacement_pdf, pdf).replace("\\", "/")
             with open(pdf, 'rb') as file:
                 lire_pdf = PdfReader(file)
-                for page_num, page in enumerate(lire_pdf.pages):
-                    texte = page.extract_text()
-                    vins = findall(self.VIN_PATTERN, texte)
-                    mrns = findall(self.MRN_PATTERN, texte)
-                    self.ListeVIN.extend(vins)
-                    self.ListeMRN.extend(mrns)
-                    for vin_unique in set(self.ListeVIN):
-                        self.unique_VIN.append(vin_unique)
-                    for vin in self.unique_VIN:
-                        sheet.cell(row=row_num, column=1, value=vin)
-                        if len(self.ListeMRN) > 0:
-                            sheet.cell(row=row_num, column=2, value=self.ListeMRN[0])
-                        row_num += 1
-                    self.ListeVIN.clear(), self.ListeMRN.clear(), self.unique_VIN.clear()
+                if extract_option == 1:
+                # Pour chaque page du PDF
+                    for _, page in enumerate(lire_pdf.pages):
+                        texte = page.extract_text()
+                        vins = findall(self.VIN_PATTERN, texte)
+                        self.ListeVIN.extend(vins)
+                        # Avoir une liste de VIN uniques
+                        for vin_unique in set(self.ListeVIN):
+                            self.unique_VIN.append(vin_unique)
+                        # Ajoute chaque VIN par ligne sur la colonne A
+                        for vin in self.unique_VIN:
+                            sheet.cell(row=row_num, column=1, value=vin)
+                            row_num += 1
+                        self.ListeVIN.clear(), self.unique_VIN.clear()
+                elif extract_option == 2:
+                    for _, page in enumerate(lire_pdf.pages):
+                        texte = page.extract_text()
+                        mrns = findall(self.MRN_PATTERN, texte)
+                        self.ListeMRN.extend(mrns)
+                        for mrn_unique in set(self.ListeMRN):
+                            self.unique_MRN.append(mrn_unique)
+                        for mrn in self.unique_MRN:
+                            sheet.cell(row=row_num, column=1, value=mrn)
+                            row_num += 1
+                        self.ListeMRN.clear(), self.unique_MRN.clear()
+                elif extract_option == 3:
+                    for _, page in enumerate(lire_pdf.pages):
+                        texte = page.extract_text()
+                        vins = findall(self.VIN_PATTERN, texte)
+                        mrns = findall(self.MRN_PATTERN, texte)
+                        self.ListeVIN.extend(vins)
+                        self.ListeMRN.extend(mrns)
+                        for vin_unique in set(self.ListeVIN):
+                            self.unique_VIN.append(vin_unique)
+                        for vin in self.unique_VIN:
+                            sheet.cell(row=row_num, column=1, value=vin)
+                            if len(self.ListeMRN) > 0:
+                                sheet.cell(row=row_num, column=2, value=self.ListeMRN[0])
+                            row_num += 1
+                        self.ListeVIN.clear(), self.ListeMRN.clear(), self.unique_VIN.clear()
             file_count += 1
             self.progress_bar['value'] = file_count
             self.update()
         if not destination:
             return None
-        return self.save_excel(
-            'Extraction VIN MRN EAD ', destination, workbook
-        )
+        if extract_option == 1:
+            return self.save_excel(
+                'Extraction VIN EAD ', destination, workbook
+            )
+        elif extract_option == 2:
+            return self.save_excel(
+                'Extraction MRN EAD ', destination, workbook
+            )
+        elif extract_option == 3:
+            return self.save_excel(
+                'Extraction VIN MRN EAD ', destination, workbook
+            )
 
     # Mise à jour de la barre de progression
     def update_progress(self, value, maximum):
@@ -329,12 +291,8 @@ class VINMRNExtractor(Tk):
                 'Le dossier source sélectionné est vide'
             )
         extract_option = self.extractOption.get()
-        if extract_option == 1:
-            thread = threading.Thread(target=self.extraction_temp, args=(self.extract_vins, (emplacement_pdf, destination), file_path_temp))
-        elif extract_option == 2:
-            thread = threading.Thread(target=self.extraction_temp, args=(self.extract_mrns, (emplacement_pdf, destination), file_path_temp))
-        elif extract_option == 3:
-            thread = threading.Thread(target=self.extraction_temp, args=(self.extract_vins_mrns, (emplacement_pdf, destination), file_path_temp))
+        if extract_option in [1, 2, 3]:
+            thread = threading.Thread(target=self.extraction_temp, args=(self.extract_vins_mrns, (emplacement_pdf, destination, extract_option), file_path_temp))
         else:
             return self.error_message(
                 'Veuillez sélectionner une option d\'extraction'
