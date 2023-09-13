@@ -47,7 +47,7 @@ from tkinter.ttk import Progressbar, Frame, Radiobutton
 from openpyxl import Workbook
 from PyPDF2 import PdfReader
 from os import path, startfile, listdir
-from re import findall, compile
+from re import findall
 import threading
 import datetime
 #################################################
@@ -192,8 +192,9 @@ class VINMRNExtractor(Tk):
             with open(pdf, 'rb') as file:
                 lire_pdf = PdfReader(file)
                 if extract_option == 1:
-                # Pour chaque page du PDF
+                    # Pour chaque page du PDF
                     for _, page in enumerate(lire_pdf.pages):
+                        self.ListeVIN.clear(), self.unique_VIN.clear()
                         texte = page.extract_text()
                         vins = findall(self.VIN_PATTERN, texte)
                         self.ListeVIN.extend(vins)
@@ -204,9 +205,9 @@ class VINMRNExtractor(Tk):
                         for vin in self.unique_VIN:
                             sheet.cell(row=row_num, column=1, value=vin)
                             row_num += 1
-                        self.ListeVIN.clear(), self.unique_VIN.clear()
                 elif extract_option == 2:
                     for _, page in enumerate(lire_pdf.pages):
+                        self.ListeMRN.clear(), self.unique_MRN.clear()
                         texte = page.extract_text()
                         mrns = findall(self.MRN_PATTERN, texte)
                         self.ListeMRN.extend(mrns)
@@ -215,9 +216,9 @@ class VINMRNExtractor(Tk):
                         for mrn in self.unique_MRN:
                             sheet.cell(row=row_num, column=1, value=mrn)
                             row_num += 1
-                        self.ListeMRN.clear(), self.unique_MRN.clear()
                 elif extract_option == 3:
                     for _, page in enumerate(lire_pdf.pages):
+                        self.ListeVIN.clear(), self.ListeMRN.clear(), self.unique_VIN.clear()
                         texte = page.extract_text()
                         vins = findall(self.VIN_PATTERN, texte)
                         mrns = findall(self.MRN_PATTERN, texte)
@@ -230,7 +231,6 @@ class VINMRNExtractor(Tk):
                             if len(self.ListeMRN) > 0:
                                 sheet.cell(row=row_num, column=2, value=self.ListeMRN[0])
                             row_num += 1
-                        self.ListeVIN.clear(), self.ListeMRN.clear(), self.unique_VIN.clear()
             file_count += 1
             self.progress_bar['value'] = file_count
             self.update()
@@ -319,6 +319,7 @@ class VINMRNExtractor(Tk):
         startfile(file_path)
         self.progress_bar.grid_remove()
         self.enable_buttons()
+
 
 app = VINMRNExtractor()
 app.resizable(False, False)
