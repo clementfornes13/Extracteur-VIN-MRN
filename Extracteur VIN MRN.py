@@ -320,7 +320,6 @@ class VINMRNExtractor(Tk):
         self.progress_bar.grid_remove()
         self.enable_buttons()
 
-
 app = VINMRNExtractor()
 app.resizable(False, False)
 app.mainloop()
