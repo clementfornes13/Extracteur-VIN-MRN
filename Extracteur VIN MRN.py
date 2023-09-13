@@ -50,7 +50,6 @@ from os import path, startfile, listdir
 from re import findall
 import threading
 import datetime
-import subprocess
 #################################################
 
 #################### CLASSES ####################
@@ -249,7 +248,7 @@ class VINMRNExtractor(Tk):
             return self.save_excel(
                 'Extraction VIN MRN EAD ', destination, workbook
             )
-
+ 
     # Mise à jour de la barre de progression
     def update_progress(self, value, maximum):
         self.progress_bar['value'] = value
@@ -294,10 +293,10 @@ class VINMRNExtractor(Tk):
         extract_option = self.extractOption.get()
         if extract_option in [1, 2, 3]:
             thread = threading.Thread(
-                target=self.extraction_temp, 
+                target=self.extraction_temp,
                 args=(self.extract_vins_mrns, (
-                    emplacement_pdf, 
-                    destination, 
+                    emplacement_pdf,
+                    destination,
                     extract_option,
                     ), 
                     file_path_temp
@@ -326,7 +325,7 @@ class VINMRNExtractor(Tk):
                 'Une erreur est survenue lors de l\'extraction des données'
             )
         messagebox.showinfo('Extraction réussie', f"Fichier enregistré ici : {file_path}")
-        try: 
+        try:
             startfile(file_path)
         except Exception:
             messagebox.showerror('Erreur', 'Impossible d\'ouvrir le fichier Excel')
