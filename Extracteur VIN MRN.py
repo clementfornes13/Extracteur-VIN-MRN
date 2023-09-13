@@ -7,7 +7,7 @@
 #
 # Copyright (c) 2023 FORNES Clément
 #
-# Licence: MIT License
+# Licence: MIT Licfacebookense
 ##############################################################################
 # MIT License
 #
