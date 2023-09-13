@@ -1,4 +1,5 @@
-<!-- LOGO PROJET -->
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8a867e5e4ebe4c11824e35cea688f8cf)](https://app.codacy.com/gh/clementfornes13/Extracteur-VIN-MRN?utm_source=github.com&utm_medium=referral&utm_content=clementfornes13/Extracteur-VIN-MRN&utm_campaign=Badge_Grade)
+
 <div align="center">
   <h3 align="center">Extracteur VIN et MRN</h3>
 </div>
@@ -27,7 +28,6 @@
 <!-- À propos -->
 ## À propos
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8a867e5e4ebe4c11824e35cea688f8cf)](https://app.codacy.com/gh/clementfornes13/Extracteur-VIN-MRN?utm_source=github.com&utm_medium=referral&utm_content=clementfornes13/Extracteur-VIN-MRN&utm_campaign=Badge_Grade)
 
 L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extraire directement les VIN et MRN présents sur des PDF dans un dossier donné
 
