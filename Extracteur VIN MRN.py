@@ -248,7 +248,7 @@ class VINMRNExtractor(Tk):
         return self.save_excel(
             'Extraction MRN EAD ', destination, workbook
         )
-    
+
     # Extraction des VIN et MRN
     def extract_vins_mrns(self, emplacement_pdf, destination):
         workbook = Workbook()
@@ -292,17 +292,17 @@ class VINMRNExtractor(Tk):
         self.progress_bar['value'] = value
         self.progress_bar['maximum'] = maximum
         self.update()
-        
+
     # Chemin de fichier temporaire
     def extraction_temp(self, extraction_func, args, file_path_temp):
         file_path_temp[0] = extraction_func(*args)
-        
+
     # Message d'erreur
     def error_message(self, arg0):
         messagebox.showerror('Erreur', arg0)
         self.enable_buttons()
         return None
-    
+
     # Enregistrement du fichier Excel
     def save_excel(self, arg0, destination, workbook):
         current_datetime = datetime.datetime.now()
@@ -311,7 +311,7 @@ class VINMRNExtractor(Tk):
         file_path = path.join(destination, file_name)
         workbook.save(file_path)
         return file_path
-    
+
     # Lancement de l'extraction
     def launch_extraction(self):
         self.disable_buttons()
