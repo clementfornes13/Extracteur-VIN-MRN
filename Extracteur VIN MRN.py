@@ -50,6 +50,7 @@ from os import path, startfile, listdir
 from re import findall
 import threading
 import datetime
+import subprocess
 #################################################
 
 #################### CLASSES ####################
@@ -194,7 +195,6 @@ class VINMRNExtractor(Tk):
                 if extract_option == 1:
                     # Pour chaque page du PDF
                     for _, page in enumerate(lire_pdf.pages):
-                        self.ListeVIN.clear(), self.unique_VIN.clear()
                         texte = page.extract_text()
                         vins = findall(self.VIN_PATTERN, texte)
                         self.ListeVIN.extend(vins)
@@ -205,9 +205,9 @@ class VINMRNExtractor(Tk):
                         for vin in self.unique_VIN:
                             sheet.cell(row=row_num, column=1, value=vin)
                             row_num += 1
+                        self.ListeVIN, self.unique_VIN = [], []
                 elif extract_option == 2:
                     for _, page in enumerate(lire_pdf.pages):
-                        self.ListeMRN.clear(), self.unique_MRN.clear()
                         texte = page.extract_text()
                         mrns = findall(self.MRN_PATTERN, texte)
                         self.ListeMRN.extend(mrns)
@@ -216,9 +216,9 @@ class VINMRNExtractor(Tk):
                         for mrn in self.unique_MRN:
                             sheet.cell(row=row_num, column=1, value=mrn)
                             row_num += 1
+                        self.ListeMRN, self.unique_MRN = [], []
                 elif extract_option == 3:
                     for _, page in enumerate(lire_pdf.pages):
-                        self.ListeVIN.clear(), self.ListeMRN.clear(), self.unique_VIN.clear()
                         texte = page.extract_text()
                         vins = findall(self.VIN_PATTERN, texte)
                         mrns = findall(self.MRN_PATTERN, texte)
@@ -231,6 +231,7 @@ class VINMRNExtractor(Tk):
                             if len(self.ListeMRN) > 0:
                                 sheet.cell(row=row_num, column=2, value=self.ListeMRN[0])
                             row_num += 1
+                        self.ListeVIN, self.ListeMRN, self.unique_VIN = [], [], []
             file_count += 1
             self.progress_bar['value'] = file_count
             self.update()
@@ -292,7 +293,16 @@ class VINMRNExtractor(Tk):
             )
         extract_option = self.extractOption.get()
         if extract_option in [1, 2, 3]:
-            thread = threading.Thread(target=self.extraction_temp, args=(self.extract_vins_mrns, (emplacement_pdf, destination, extract_option), file_path_temp))
+            thread = threading.Thread(
+                target=self.extraction_temp, 
+                args=(self.extract_vins_mrns, (
+                    emplacement_pdf, 
+                    destination, 
+                    extract_option,
+                    ), 
+                    file_path_temp
+                ),
+            )
         else:
             return self.error_message(
                 'Veuillez sélectionner une option d\'extraction'
@@ -316,7 +326,10 @@ class VINMRNExtractor(Tk):
                 'Une erreur est survenue lors de l\'extraction des données'
             )
         messagebox.showinfo('Extraction réussie', f"Fichier enregistré ici : {file_path}")
-        startfile(file_path)
+        try: 
+            startfile(file_path)
+        except Exception:
+            messagebox.showerror('Erreur', 'Impossible d\'ouvrir le fichier Excel')
         self.progress_bar.grid_remove()
         self.enable_buttons()
 
