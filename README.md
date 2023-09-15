@@ -31,7 +31,11 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 <hr>
 
+<div align="right">
+
 [🔼 Revenir en haut](#Extracteur_VIN_et_MRN)
+
+</div>
 
 ## Mise en place
 
@@ -53,7 +57,11 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 <hr>
 
+<div align="right">
+
 [🔼 Revenir en haut](#Extracteur_VIN_et_MRN)
+
+</div>
 
 ## Historique des versions
 
@@ -78,7 +86,11 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 <hr>
 
+<div align="right">
+
 [🔼 Revenir en haut](#Extracteur_VIN_et_MRN)
+
+</div>
 
 
 ## Roadmap
@@ -93,7 +105,11 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 <hr>
 
+<div align="right">
+
 [🔼 Revenir en haut](#Extracteur_VIN_et_MRN)
+
+</div>
 
 ## Ressources
 
@@ -102,4 +118,8 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 - [Tkinter Documentation](https://docs.python.org/fr/3/library/tkinter.html)
 - [auto-py-to-exe](https://pypi.org/project/auto-py-to-exe/)
 
+<div align="right">
+
 [🔼 Revenir en haut](#Extracteur_VIN_et_MRN)
+
+</div>
