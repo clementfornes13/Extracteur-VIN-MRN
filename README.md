@@ -77,7 +77,7 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
   - Extraction du texte et cherche les VINs
 - Version 1.1 :
   - Définition d'un pattern pour les VINs
-    - Interface graphique simple
+  - Interface graphique simple
 - Version 1.2 :
   - Ajout du choix de l'emplacement de destination
   - Ouverture automatique du fichier à la fin de l'extraction
