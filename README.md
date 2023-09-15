@@ -33,7 +33,7 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 <div align="right">
 
-[🔼 Revenir en haut](#Sommaire)
+[🔼 Revenir en haut](#à-propos)
 
 </div>
 
@@ -59,7 +59,7 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 <div align="right">
 
-[🔼 Revenir en haut](#Sommaire)
+[🔼 Revenir en haut](#à-propos)
 
 </div>
 
@@ -88,7 +88,7 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 <div align="right">
 
-[🔼 Revenir en haut](#Sommaire)
+[🔼 Revenir en haut](#à-propos)
 
 </div>
 
@@ -107,7 +107,7 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 <div align="right">
 
-[🔼 Revenir en haut](#Sommaire)
+[🔼 Revenir en haut](#à-propos)
 
 </div>
 
@@ -120,6 +120,6 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 
 <div align="right">
 
-[🔼 Revenir en haut](#Sommaire)
+[🔼 Revenir en haut](#à-propos)
 
 </div>
