@@ -58,27 +58,27 @@ L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extrair
 ## Historique des versions
 
 - Version 1 : 
-	- Extraction du texte et cherche les VINs
-    <br>
+	- Extraction du texte et cherche les VINs  
+<br>
 - Version 1.1 :
-	- Définition d'un pattern pour les VINs
-    - Interface graphique simple
-    <br>
+	- Définition d'un pattern pour les VINs  
+    - Interface graphique simple  
+<br>
 - Version 1.2 :
-  - Ajout du choix de l'emplacement de destination
-  - Ouverture automatique du fichier à la fin de l'extraction
-    <br>
+  - Ajout du choix de l'emplacement de destination  
+  - Ouverture automatique du fichier à la fin de l'extraction  
+<br>
 - Version 2.0 :
-  - Nouvelle Interface plus complète et rapide avec PyQt6
-  - Définition d'un pattern pour les MRNs
-  - Détection des MRNs et VINs associés
-  - Traite tout les fichiers dans un même dossier
+  - Nouvelle Interface plus complète et rapide avec PyQt6  
+  - Définition d'un pattern pour les MRNs  
+  - Détection des MRNs et VINs associés  
+  - Traite tout les fichiers dans un même dossier  
 <br>
 - Version 3.0 :
-  - Nouvelle Interface avec Tkinter (meilleure réactivité)
-  - Choix entre VIN, MRN ou VIN + MRN avec des cases à cocher
-  - Barre de progression pour avoir un aperçu de l'avancement
-  - Utilisation de différents threads pour améliorer la vitesse d'exécution et l'expérience utilisateur
+  - Nouvelle Interface avec Tkinter (meilleure réactivité)  
+  - Choix entre VIN, MRN ou VIN + MRN avec des cases à cocher  
+  - Barre de progression pour avoir un aperçu de l'avancement  
+  - Utilisation de différents threads pour améliorer la vitesse d'exécution et l'expérience utilisateur  
 
 <hr>
 
