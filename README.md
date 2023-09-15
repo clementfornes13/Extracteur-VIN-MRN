@@ -1,128 +1,109 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8a867e5e4ebe4c11824e35cea688f8cf)](https://app.codacy.com/gh/clementfornes13/Extracteur-VIN-MRN?utm_source=github.com&utm_medium=referral&utm_content=clementfornes13/Extracteur-VIN-MRN&utm_campaign=Badge_Grade)
 
 <div align="center">
-  <h3 align="center">Extracteur VIN et MRN</h3>
+
+<h1>Extracteur VIN et MRN</h1>
+
 </div>
 
-<!-- SOMMAIRE -->
 <details>
-  <summary>Sommaire</summary>
-  <ol>
-    <li>
-      <a href="#a-propos">À propos</a>
-    </li>
-    <li>
-      <a href="#mise-en-place">Mise en place</a>
-      <ul>
-        <li><a href="#prerequis">Pré-requis</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#utilisation">Utilisation</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <lia><a href="#versionhistory">Historique des versions</a></li>
-    <li><a href="#ressources">Ressources utilisés</a></li>
-  </ol>
+
+<summary>Sommaire</summary>
+
+- [À propos](#à-propos)
+- [Mise en place](#mise-en-place)
+  - [Pré-requis](#pré-requis)
+- [Historique des versions](#historique-des-versions)
+- [Roadmap](#roadmap)
+- [Ressources](#ressources)
+
 </details>
 
-<!-- À propos -->
 ## À propos
-
 
 L'extracteur VIN et MRN est un exécutable qui permet aux utilisateurs d'extraire directement les VIN et MRN présents sur des PDF dans un dossier donné
 
-<p align="center">
-  <img src="https://github.com/clementfornes13/Extracteur-VIN-MRN/blob/main/images/Screenshot%20Interface.png" alt="Screenshot" />
-</p>
+<div align="center">
 
-<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
+[![Screenshot](https://github.com/clementfornes13/Extracteur-VIN-MRN/blob/main/images/Screenshot%20Interface.png)](https://github.com/clementfornes13/Extracteur-VIN-MRN) 
 
+</div>
 
-<!-- Mise en place -->
+<hr>
+
+[🔼 Revenir en haut](#Extracteur_VIN_et_MRN)
+
 ## Mise en place
 
 ### Pré-requis
 
-* Windows
-
-* Python 3.11
-  ```sh
+- Windows
+- Python 3.11
+  ```py 
   https://www.python.org/downloads/
   ```
-  
-* PyPDF2
-  ```sh
+- PyPDF2
+  ```py
   pip install PyPDF2
-  py -m pip install PyPDF2
   ```
-
-* openpyxl
-  ```sh
+- openpyxl
+  ```py
   pip install openpyxl
-  py -m pip install openpyxl
   ```
 
-<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
+<hr>
 
-<!-- Historique des versions -->
+[🔼 Revenir en haut](#Extracteur_VIN_et_MRN)
+
 ## Historique des versions
 
 - Version 1 : 
-
-	> Extraction du texte et cherche les VINs
-
+	- Extraction du texte et cherche les VINs
+<br>
 - Version 1.1 :
-
-	> Définition d'un pattern pour les VINs
-  > Interface graphique simple
-
+	- Définition d'un pattern pour les VINs
+    - Interface graphique simple
+<br>
 - Version 1.2 :
-
-  > Ajout du choix de l'emplacement de destination
-
-  > Ouverture automatique du fichier à la fin de l'extraction
-
+  - Ajout du choix de l'emplacement de destination
+  - Ouverture automatique du fichier à la fin de l'extraction
+<br>
 - Version 2.0 :
-
-  > Nouvelle Interface plus complète et rapide avec PyQt6
-  
-  > Définition d'un pattern pour les MRNs
-
-  > Détection des MRNs et VINs associés
- 
-  > Traite tout les fichiers dans un même dossier
-
+  - Nouvelle Interface plus complète et rapide avec PyQt6
+  - Définition d'un pattern pour les MRNs
+  - Détection des MRNs et VINs associés
+  - Traite tout les fichiers dans un même dossier
+<br>
 - Version 3.0 :
+  - Nouvelle Interface avec Tkinter (meilleure réactivité)
+  - Choix entre VIN, MRN ou VIN + MRN avec des cases à cocher
+  - Barre de progression pour avoir un aperçu de l'avancement
+  - Utilisation de différents threads pour améliorer la vitesse d'exécution et l'expérience utilisateur
 
-  > Nouvelle Interface avec Tkinter (meilleure réactivité)
+<hr>
 
-  > Choix entre VIN, MRN ou VIN + MRN avec des cases à cocher
+[🔼 Revenir en haut](#Extracteur_VIN_et_MRN)
 
-  > Barre de progression pour avoir un aperçu de l'avancement
 
-  > Utilisation de différents threads pour améliorer la vitesse d'exécution et l'expérience utilisateur
-
-<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
-
-<!-- ROADMAP -->
 ## Roadmap
 
-- [x] Extraction de VIN
-- [x] Extraction de MRN
-- [x] Barre de progression
-- [x] Interface graphique
-- [x] Utilisation de threads
-- [x] Traitement par dossier
-- [x] Facilité d'utilisation et d'installation
+✅ Extraction de VIN
+✅ Extraction de MRN
+✅ Barre de progression
+✅ Interface graphique
+✅ Utilisation de threads
+✅ Traitement par dossier
+✅ Facilité d'utilisation et d'installation
 
-<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
+<hr>
 
-<!-- Ressources utilisées -->
+[🔼 Revenir en haut](#Extracteur_VIN_et_MRN)
+
 ## Ressources
 
-* [PyPDF2 Documentation](https://pypdf2.readthedocs.io/en/3.0.0/)
-* [OpenPyXL Documentation](https://openpyxl.readthedocs.io/en/stable/)
-* [Tkinter Documentation](https://docs.python.org/fr/3/library/tkinter.html)
-* [auto-py-to-exe](https://pypi.org/project/auto-py-to-exe/)
+- [PyPDF2 Documentation](https://pypdf2.readthedocs.io/en/3.0.0/)
+- [OpenPyXL Documentation](https://openpyxl.readthedocs.io/en/stable/)
+- [Tkinter Documentation](https://docs.python.org/fr/3/library/tkinter.html)
+- [auto-py-to-exe](https://pypi.org/project/auto-py-to-exe/)
 
-<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
+[🔼 Revenir en haut](#Extracteur_VIN_et_MRN)
